@@ -5,19 +5,57 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+set(ANDROID_ABI x86)
+set(PROJECT_DIR /Users/chenjianjun/android_ws/studio/Mp3Encoder)
+#设置第三方库头文件所在位置
+include_directories(${PROJECT_DIR}/src/main/cpp/lame/include/)
+#设置第三方库头库所在位置
+link_directories(${PROJECT_DIR}/src/main/jniLibs/x86/)
+
+#link_libraries(recorder.so cutils.so tinyalsa.so utils.so uvoice-kws.so)
+#add_library(
+#        mp3lame
+#        STATIC
+#        IMPORTED
+#)
+#set_target_properties(
+#        mp3lame
+#        PROPERTIES IMPORTED_LOCATION
+#        ${PROJECT_DIR}/src/main/jniLibs/x86_64/libmp3lame.a
+#)
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-        native-lib
+        mp3encoder
 
         # Sets the library as a shared library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        native-lib.cpp)
+        mp3encoder.cpp
+        lame/bitstream.c
+        lame/encoder.c
+        lame/fft.c
+        lame/gain_analysis.c
+        lame/id3tag.c
+        lame/lame.c
+        lame/mpglib_interface.c
+        lame/newmdct.c
+        lame/presets.c
+        lame/psymodel.c
+        lame/quantize.c
+        lame/quantize_pvt.c
+        lame/reservoir.c
+        lame/set_get.c
+        lame/tables.c
+        lame/takehiro.c
+        lame/util.c
+        lame/vbrquantize.c
+        lame/VbrTag.c
+        lame/version.c)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -37,7 +75,7 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-        native-lib
+        mp3encoder
 
         # Links the target library to the log library
         # included in the NDK.
