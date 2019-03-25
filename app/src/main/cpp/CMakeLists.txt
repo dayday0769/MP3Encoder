@@ -3,59 +3,21 @@
 
 # Sets the minimum version of CMake required to build the native library.
 
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.6)
 
-set(ANDROID_ABI x86)
-set(PROJECT_DIR /Users/chenjianjun/android_ws/studio/Mp3Encoder)
-#设置第三方库头文件所在位置
-include_directories(${PROJECT_DIR}/src/main/cpp/lame/include/)
-#设置第三方库头库所在位置
-link_directories(${PROJECT_DIR}/src/main/jniLibs/x86/)
+#设置变量SRC_DIR为lamemp3的所在路径
+set(SRC_DIR lame)
 
-#link_libraries(recorder.so cutils.so tinyalsa.so utils.so uvoice-kws.so)
-#add_library(
-#        mp3lame
-#        STATIC
-#        IMPORTED
-#)
-#set_target_properties(
-#        mp3lame
-#        PROPERTIES IMPORTED_LOCATION
-#        ${PROJECT_DIR}/src/main/jniLibs/x86_64/libmp3lame.a
-#)
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
+#指定头文件所在，可以多次调用，指定多个路径
+include_directories(lame/include)
 
-add_library( # Sets the name of the library.
-        mp3encoder
+#添加自自定义的so库时，有两种方式，一种添加一个目录，一种一个个文件添加
 
-        # Sets the library as a shared library.
-        SHARED
+#设定一个目录
+aux_source_directory(lame SRC_LIST)
 
-        # Provides a relative path to your source file(s).
-        mp3encoder.cpp
-        lame/bitstream.c
-        lame/encoder.c
-        lame/fft.c
-        lame/gain_analysis.c
-        lame/id3tag.c
-        lame/lame.c
-        lame/mpglib_interface.c
-        lame/newmdct.c
-        lame/presets.c
-        lame/psymodel.c
-        lame/quantize.c
-        lame/quantize_pvt.c
-        lame/reservoir.c
-        lame/set_get.c
-        lame/tables.c
-        lame/takehiro.c
-        lame/util.c
-        lame/vbrquantize.c
-        lame/VbrTag.c
-        lame/version.c)
+#将前面目录下所有的文件都添加进去
+add_library(mp3encoder SHARED mp3encoder.cpp ${SRC_LIST})
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -73,7 +35,7 @@ find_library( # Sets the name of the path variable.
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
-
+# 指定依赖库的名称
 target_link_libraries( # Specifies the target library.
         mp3encoder
 
