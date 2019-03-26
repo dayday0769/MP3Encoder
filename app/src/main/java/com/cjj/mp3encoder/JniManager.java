@@ -13,8 +13,8 @@ public class JniManager {
     public JniManager() {
     }
 
-    public static JniManager getInstance(){
-        if(null==mContext){
+    public static JniManager getInstance() {
+        if (null == mContext) {
             mContext = new JniManager();
         }
         return mContext;
@@ -32,6 +32,12 @@ public class JniManager {
     public native String stringFromJNI();
 
     public native String getLameVersion();
+
+    public native int init(String pcmPath, int audioChannels, int bitRate, int sampleRate, String mp3Path);
+
+    public native void encode();
+
+    public native void destroy();
 
 
 }

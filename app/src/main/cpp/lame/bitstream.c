@@ -36,8 +36,11 @@
 #include "util.h"
 #include "tables.h"
 #include "quantize_pvt.h"
+#include "lame_global_flags.h"
+#include "gain_analysis.h"
 #include "VbrTag.h"
 #include "bitstream.h"
+#include "tables.h"
 
 
 

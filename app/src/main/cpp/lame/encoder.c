@@ -34,6 +34,7 @@
 #include "machine.h"
 #include "encoder.h"
 #include "util.h"
+#include "lame_global_flags.h"
 #include "newmdct.h"
 #include "psymodel.h"
 #include "lame-analysis.h"

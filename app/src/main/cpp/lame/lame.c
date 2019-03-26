@@ -41,9 +41,11 @@
 #include "bitstream.h"
 #include "quantize_pvt.h"
 #include "set_get.h"
+#include "quantize.h"
 #include "psymodel.h"
 #include "version.h"
 #include "VbrTag.h"
+#include "tables.h"
 
 
 #if defined(__FreeBSD__) && !defined(__alpha__)
